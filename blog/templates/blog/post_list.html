@@ -1,31 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Django Girls Blog</title>
-    </head>
-    <body>
-        <!--header tag - identifies the top of the page and usually navbar-->
-        <!--the header tag does nothing beside label a part of our website.. like a div-->
-        <header>
-            <!--h1 or heading1 denotes the main title of the page usually with h2 and beyond being subheadings-->
-            <!--create a link using the text below to be clickable to a new webpage-->
-            <!--a tag or anchor tag makes text a clickable link-->
-            <h1><a href="/">Django Girls Blog</a></h1>
-        </header>
+{% extends 'blog/base.html' %}
 
-        <!--article tag is like the header tag... it does not do anything but denote that this is an article-->
-        <article>
-            <!--time tag denotes somthing is in utc or other time values-->
-            <time>published: 14.06.2014, 12:14</time>
-            <!--h2 means subheading. this will be the heading of each of our posts-->
-            <h2><a href="">My First Post</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum aliquid architecto natus. A, ea saepe.</p>
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <time class="date">published: {{ post.published_date }}</time>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
         </article>
-        <article>
-            <!--time tag denotes somthing is in utc or other time values-->
-            <time>published: 14.06.2014, 12:14</time>
-            <h2><a href="">My Second Post</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, rerum at? Ipsam deleniti magni illum ullam? Quaerat cum ipsa reiciendis.</p>
-        </article>
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}
